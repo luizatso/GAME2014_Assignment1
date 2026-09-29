@@ -1,0 +1,24 @@
+using UnityEngine;
+using System.Collections;
+
+public class InvincibilityController : MonoBehaviour
+{
+    private HealthController healthController;
+
+    private void Awake()
+    {
+        healthController = GetComponent<HealthController>();
+    }
+
+    public void StartInvincibility(float invincibilityDuration)
+    {
+        StartCoroutine(InvincibilityCoroutine(invincibilityDuration));
+    }
+
+    private IEnumerator InvincibilityCoroutine(float invincibilityDuration)
+    {
+        healthController.IsInvincible = true;
+        yield return new WaitForSeconds(invincibilityDuration);
+        healthController.IsInvincible = false;
+    }
+}
