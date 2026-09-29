@@ -3,45 +3,41 @@ using UnityEngine.Events;
 
 public class HealthController : MonoBehaviour
 {
-    [SerializeField] private float currentHealth;
-    [SerializeField] private float maximumHealth;
+    [SerializeField] private float currentHealth = 100f;
+    [SerializeField] private float maximumHealth = 100f;
 
     public float RemainingHealthPercentage
     {
         get
         {
-            return currentHealth / maximumHealth;
+            return maximumHealth > 0f
+                ? Mathf.Clamp01(currentHealth / maximumHealth)
+                : 0f;
         }
     }
 
     public bool IsInvincible { get; set; }
 
-    public UnityEvent OnDied;
-    public UnityEvent OnDamaged;
-    public UnityEvent OnHealthChanged;
+    public UnityEvent OnDied = new UnityEvent();
+    public UnityEvent OnDamaged = new UnityEvent();
+    public UnityEvent OnHealthChanged = new UnityEvent();
 
     public void TakeDamage(float damageAmount)
     {
-        if (currentHealth == 0)
+        if (currentHealth <= 0f || IsInvincible || damageAmount <= 0f)
         {
             return;
         }
 
-        if (IsInvincible)
-        {
-            return;
-        }
-
-        currentHealth -= damageAmount;
+        currentHealth = Mathf.Clamp(
+            currentHealth - damageAmount,
+            0f,
+            maximumHealth
+        );
 
         OnHealthChanged.Invoke();
 
-        if (currentHealth < 0)
-        {
-            currentHealth = 0;
-        }
-
-        if (currentHealth == 0)
+        if (currentHealth <= 0f)
         {
             OnDied.Invoke();
         }
@@ -52,19 +48,20 @@ public class HealthController : MonoBehaviour
     }
 
     public void AddHealth(float amountToAdd)
-    { 
-        if (currentHealth == maximumHealth)
+    {
+        if (currentHealth <= 0f ||
+            currentHealth >= maximumHealth ||
+            amountToAdd <= 0f)
         {
             return;
         }
 
-        currentHealth += amountToAdd;
+        currentHealth = Mathf.Clamp(
+            currentHealth + amountToAdd,
+            0f,
+            maximumHealth
+        );
 
         OnHealthChanged.Invoke();
-
-        if (currentHealth > maximumHealth)
-        {
-            currentHealth = maximumHealth;
-        }
     }
 }

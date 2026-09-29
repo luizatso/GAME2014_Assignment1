@@ -8,11 +8,14 @@ public class EnemyScoreAllocator : MonoBehaviour
 
     private void Awake()
     {
-        scoreController = FindObjectOfType<ScoreController>();
+        scoreController = FindAnyObjectByType<ScoreController>();
     }
 
     public void AllocateScore()
     {
-        scoreController.AddScore(killScore);
+        if (scoreController != null)
+        {
+            scoreController.AddScore(killScore);
+        }
     }
 }
