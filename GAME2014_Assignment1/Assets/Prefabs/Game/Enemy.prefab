@@ -17,6 +17,8 @@ GameObject:
   - component: {fileID: 2113684414759937422}
   - component: {fileID: 8192011711225804927}
   - component: {fileID: 7957182678772458681}
+  - component: {fileID: 1391800625690255132}
+  - component: {fileID: 4376745566470080951}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -231,6 +233,30 @@ MonoBehaviour:
           m_StringArgument: OnDied
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1391800625690255132}
+        m_TargetAssemblyTypeName: EnemyScoreAllocator, Assembly-CSharp
+        m_MethodName: AllocateScore
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 1
+          m_StringArgument: OnDied
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4376745566470080951}
+        m_TargetAssemblyTypeName: EnemyCollectableDrop, Assembly-CSharp
+        m_MethodName: RandomlyDropCollectable
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 1
+          m_StringArgument: OnDied
+          m_BoolArgument: 0
+        m_CallState: 2
   OnDamaged:
     m_PersistentCalls:
       m_Calls: []
@@ -249,6 +275,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b7416068fca62e4e86e0d578173393c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDestroyedController
+--- !u!114 &1391800625690255132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 435419883468216180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 749900c6be90cdf46913d7162aa3024d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyScoreAllocator
+  killScore: 10
+--- !u!114 &4376745566470080951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 435419883468216180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57044320d0315404393f8100a0f422fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyCollectableDrop
+  chanceOfCollectableDrop: 0.25
 --- !u!1 &5625879403430603488
 GameObject:
   m_ObjectHideFlags: 0
